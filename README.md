@@ -1,2 +1,2 @@
-# vue-ele-manager-demo
+# vue-ele-manage-demo
 ele-manager-demo
