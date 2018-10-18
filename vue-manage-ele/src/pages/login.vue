@@ -1,24 +1,26 @@
 <template>
   <div class="fillcontain">
-    <div class="form_container">
-      <div class="login_title">
-        <p>ele管理后台</p>
+    <transition name="form-fade" mode="in-out">
+      <div class="form_container" v-show="showLogin">
+        <div class="login_title">
+          <p>ele管理后台</p>
+        </div>
+        <el-form :model="loginForm" :rules="rules" ref="loginForm">
+          <el-form-item prop="username">
+            <el-input v-model="loginForm.username" placeholder="用户名"><span>dsfsf</span></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input type="password" placeholder="密码" v-model="loginForm.password"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm('loginForm')" class="submit_btn">登陆</el-button>
+          </el-form-item>
+        </el-form>
+        <p class="tip">温馨提示：</p>
+        <p class="tip">未登录过的新用户，自动注册</p>
+        <p class="tip">注册过的用户可凭账号密码登录</p>
       </div>
-      <el-form :model="loginForm" :rules="rules" ref="loginForm">
-        <el-form-item prop="username">
-          <el-input v-model="loginForm.username" placeholder="用户名"><span>dsfsf</span></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input type="password" placeholder="密码" v-model="loginForm.password"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('loginForm')" class="submit_btn">登陆</el-button>
-        </el-form-item>
-      </el-form>
-      <p class="tip">温馨提示：</p>
-      <p class="tip">未登录过的新用户，自动注册</p>
-      <p class="tip">注册过的用户可凭账号密码登录</p>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -41,11 +43,33 @@ export default {
       },
       showLogin: false
     }
+  },
+  mounted () {
+    this.showLogin = true
+  },
+  methods: {
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$message({
+            message: '登录成功了啊',
+            duration: '1500',
+            type: 'success'
+          })
+          setTimeout(() => {
+            this.$router.push('manage')
+          }, 2000)
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .fillcontain{
   width: 100%;
   height: 100%;
@@ -81,5 +105,16 @@ export default {
 }
 .submit_btn{
   width: 100%;
+}
+.form-fade-enter-active,.form-fade-leave-active{
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -ms-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+}
+.form-fade-enter, .form-fade-leave-active{
+  transform: translate3d(0, -50px, 0);
+  opacity: 0;
 }
 </style>
