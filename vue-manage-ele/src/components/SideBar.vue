@@ -57,7 +57,6 @@ export default{
   },
   methods: {
     handleSelect () {
-      alert(13)
     }
   }
 }
