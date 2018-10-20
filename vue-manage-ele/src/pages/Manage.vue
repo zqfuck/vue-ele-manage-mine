@@ -4,8 +4,8 @@
       <el-col :span="4" style="min-height: 100%; background-color: #324057;">
         <side-bar></side-bar>
       </el-col>
-      <el-col :span="20" style="min-height: 100%;">
-        <router-view></router-view>
+      <el-col :span="20" style="min-height: 100%;background: cornsilk;">
+
       </el-col>
     </el-row>
   </div>
