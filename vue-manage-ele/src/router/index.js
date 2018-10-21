@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/pages/Login'
 import Manage from '@/pages/Manage'
+import Home from '@/pages/Home'
 
 Vue.use(Router)
 
@@ -13,8 +14,15 @@ export default new Router({
       component: Login
     }, {
       path: '/manage',
-      name: 'Manage',
-      component: Manage
+      component: Manage,
+      children: [
+        {
+          path: '',
+          name: Home,
+          component: Home,
+          meta: []
+        }
+      ]
     }
   ]
 })
