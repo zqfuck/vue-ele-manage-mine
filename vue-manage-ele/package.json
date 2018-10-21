@@ -11,7 +11,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "echarts": "^4.2.0-rc.2",
     "element-ui": "^2.4.8",
+    "moment": "^2.22.2",
+    "time-formater": "^1.0.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
