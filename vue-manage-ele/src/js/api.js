@@ -69,5 +69,17 @@ export default {
    */
   adminCount (params) {
     return fetchGet('/admin/count')
+  },
+  /**
+   * 获取用户列表
+   */
+  getUserList (params) {
+    return fetchGet('/v1/users/list', params)
+  },
+  /**
+   * 获取用户数量
+   */
+  getUserCount (params) {
+    return fetchGet('/v1/users/count', params)
   }
 }

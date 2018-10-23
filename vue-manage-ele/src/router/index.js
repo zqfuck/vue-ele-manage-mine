@@ -15,6 +15,7 @@ export default new Router({
     }, {
       path: '/manage',
       component: Manage,
+      name: '',
       children: [
         {
           path: '/',
@@ -22,7 +23,7 @@ export default new Router({
           component: Home,
           meta: []
         },{
-          path: '/userlist',
+          path: 'userlist',
           name: UserList,
           component: UserList,
           meta: ['数据管理', '用户列表']
