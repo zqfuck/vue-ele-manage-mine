@@ -81,5 +81,35 @@ export default {
    */
   getUserCount (params) {
     return fetchGet('/v1/users/count', params)
+  },
+  /**
+   * 获取订单数量
+   */
+  getOrderCount (params) {
+    return fetchGet('/bos/orders/count', params)
+  },
+  /**
+   * 获取订单列表
+   */
+  getOrderList (params) {
+    return fetchGet('/bos/orders', params)
+  },
+  /**
+   * 获取餐馆详细信息
+   */
+  getResturantDetail (params) {
+    return fetchGet('/shopping/restaurant/' + params)
+  },
+  /**
+   * 获取用户信息
+   */
+  getUserInfo (params) {
+    return fetchGet('/v1/user/' + params)
+  },
+  /**
+   * 获取地址信息
+   */
+  getAddressById (params) {
+    return fetchGet('/v1/addresse/' + params)
   }
 }

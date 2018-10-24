@@ -4,26 +4,41 @@
     <div class="table_contain">
       <el-table
         :data="tableData"
-        :border="false"
-        highlight-current-row
+        @expand-change='expandChange'
+        :row-key="row => row.index"
         style="width: 100%">
-        <el-table-column
-          type="index"
-          width="100">
+        <el-table-column type="expand">
+          <template scope="props">
+            <el-form label-position="left" inline class="demo-table-expand">
+              <el-form-item label="用户名" >
+                <span>{{ props.row.user_name }}</span>
+              </el-form-item>
+              <el-form-item label="店铺名称">
+                <span>{{ props.row.restaurant_name }}</span>
+              </el-form-item>
+              <el-form-item label="收货地址">
+                <span>{{ props.row.address }}</span>
+              </el-form-item>
+              <el-form-item label="店铺 ID">
+                <span>{{ props.row.restaurant_id }}</span>
+              </el-form-item>
+              <el-form-item label="店铺地址">
+                <span>{{ props.row.restaurant_address }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
         </el-table-column>
         <el-table-column
-          property="registe_time"
-          label="注册日期"
-          width="220">
+          label="订单 ID"
+          prop="id">
         </el-table-column>
         <el-table-column
-          property="username"
-          label="用户姓名"
-          width="220">
+          label="总价格"
+          prop="total_amount">
         </el-table-column>
         <el-table-column
-          property="city"
-          label="注册地址">
+          label="订单状态"
+          prop="status">
         </el-table-column>
       </el-table>
     </div>
@@ -32,7 +47,6 @@
       layout="total, prev, pager, next"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      @prev-click="pre"
       :current-page="currentPage"
       :page-size="20"
       :total="count">
@@ -47,39 +61,32 @@ export default{
   name: 'UserList',
   data () {
     return {
-      tableData: [{
-        registe_time: '2016-05-02',
-        username: '王小虎',
-        city: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        registe_time: '2016-05-04',
-        username: '王小虎',
-        city: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        registe_time: '2016-05-01',
-        username: '王小虎',
-        city: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        registe_time: '2016-05-03',
-        username: '王小虎',
-        city: '上海市普陀区金沙江路 1516 弄'
-      }],
+      tableData: [],
       currentRow: null,
       offset: 0,
       limit: 20,
       count: 0,
-      currentPage: 1
+      currentPage: 1,
+      restaurant_id: null,
+      expendRow: []
     }
   },
   components: {
     HeadTop
   },
-  mounted () {
+  created () {
+    this.restaurant_id = this.$route.query.restaurant_id
     this.initData()
+  },
+  mounted () {
+
   },
   methods: {
     initData () {
-      api.getUserCount().then(res => {
+      let params = {
+        restaurant_id: this.restaurant_id
+      }
+      api.getOrderCount(params).then(res => {
         console.log(res)
         if (res.status == 1) {
           this.count = res.count;
@@ -89,26 +96,57 @@ export default{
       }).catch(err => {
         console.log(err)
       })
-      this.getUserList()
+      this.getOrders()
     },
-    getUserList () {
+    getOrders () {
       let params = {
         offset: this.offset,
-        limit: this.limit
+        limit: this.limit,
+        restaurant_id: this.restaurant_id
       }
-      api.getUserList(params).then(res => {
+      api.getOrderList(params).then(res => {
         console.log(res)
         this.tableData = []
-        res.forEach(item => {
-          const tableData = []
-          tableData.username = item.username
-          tableData.registe_time = item.registe_time
-          tableData.city = item.city
-          this.tableData.push(tableData)
+        res.forEach((item, index) => {
+          const tableData = {}
+          tableData.id = item.id;
+          tableData.total_amount = item.total_amount;
+          tableData.status = item.status_bar.title;
+          tableData.user_id = item.user_id;
+          tableData.restaurant_id = item.restaurant_id;
+          tableData.address_id = item.address_id;
+          tableData.index = index;
+          this.tableData.push(tableData);
         })
       }).catch(err => {
         console.log(err)
       })
+    },
+    expandChange (row, status){
+      var restaurant;
+      var userInfo;
+      var addressInfo;
+      console.log(...row)
+      if (status) {
+        api.getResturantDetail(row.restaurant_id).then(res => {
+           restaurant = res
+           console.log(restaurant)
+          //this.tableData.splice(row.index, 1,{...row,...{restaurant_name: restaurant.name, restaurant_address: restaurant.address}})
+        })
+        api.getUserInfo(row.user_id).then(res => {
+            userInfo = res
+          //this.tableData.splice(row.index, 1,{...row,...{address: userInfo.address}})
+        })
+       api.getAddressById(row.address_id).then(res => {
+           addressInfo = res
+        // this.tableData.splice(row.index, 1,{...row,...{user_name: addressInfo.username}})
+        })
+        setTimeout(() => {
+          this.tableData.splice(row.index, 1, {...row, ...{restaurant_name: restaurant.name, restaurant_address: restaurant.address, address: addressInfo.address, user_name: userInfo.username}});
+        },500)
+      }else{
+
+      }
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
@@ -116,7 +154,7 @@ export default{
     handleCurrentChange(val) {
       this.currentPage = val;
       this.offset = (val - 1)*this.limit;
-      this.getUserList()
+      this.getOrders()
     }
   }
 }
@@ -129,5 +167,14 @@ export default{
 }
 .table_contain{
   padding: 20px;
+}
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
 }
 </style>
