@@ -111,5 +111,39 @@ export default {
    */
   getAddressById (params) {
     return fetchGet('/v1/addresse/' + params)
+  },
+  /**
+   * 获取定位城市
+   */
+  cityGuess (params) {
+    return fetchGet('/v1/cities', params)
+  },
+  /**
+   * 获取餐馆数量
+   */
+  getResturantsCount (params) {
+    return fetchGet('/shopping/restaurants/count')
+  },
+  /**
+   * 获取餐馆列表
+   */
+  getResturants (params) {
+    return fetchGet('/shopping/restaurants', params)
+  },
+  /**
+   * category 种类列表
+   */
+  foodCategory (params) {
+    return fetchGet('/shopping/v2/restaurant/category', params)
+  },
+  baseImgPath () {
+    return '//elm.cangdu.org/img/';
+  },
+  /**
+   * 更新餐馆信息
+   */
+  updateResturant (params) {
+    return fetchPost('/shopping/updateshop', params)
   }
+
 }

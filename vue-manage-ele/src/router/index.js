@@ -5,6 +5,7 @@ import Manage from '@/pages/Manage'
 import Home from '@/pages/Home'
 import UserList from '@/pages/UserList'
 import OrderList from '@/pages/OrderList'
+import ShopList from '@/pages/ShopList'
 Vue.use(Router)
 
 export default new Router({
@@ -34,6 +35,12 @@ export default new Router({
           name: OrderList,
           component: OrderList,
           meta: ['数据管理', '订单列表']
+        },
+        {
+          path: 'shoplist',
+          name: ShopList,
+          component: ShopList,
+          meta: ['数据管理', '商家列表']
         }
       ]
     }
