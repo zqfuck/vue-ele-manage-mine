@@ -78,8 +78,7 @@
     <el-dialog
       title="修改店铺信息"
       :visible.sync="dialogFormVisible"
-      width="30%"
-      :before-close="handleClose">
+      width="30%">
       <el-form :model="selectTable">
         <el-form-item label="店铺名称" label-width="100px">
           <el-input v-model="selectTable.name" auto-complete="off"></el-input>
@@ -110,7 +109,7 @@
         <el-form-item label="商铺图片" label-width="100px">
           <el-upload
             class="avatar-uploader"
-            :action="baseUrl + '/v1/addimg/shop'"
+            :action="'http://elm.cangdu.org/v1/addimg/shop'"
             :show-file-list="false"
             :on-success="handleServiceAvatarScucess"
             :before-upload="beforeAvatarUpload">
@@ -247,6 +246,7 @@ export default{
       this.dialogFormVisible = false;
       this.selectTable.category = this.selectedCategory.join('/');
       api.updateResturant(this.selectTable).then(res => {
+        console.log(res)
         if (res.status == 1) {
           this.$message({
             type: 'success',
@@ -256,13 +256,93 @@ export default{
         }else{
           this.$message({
             type: 'error',
-            message: res.message
+            message: `${res.message}或不可修改`
           });
         }
       }).catch(err => {
         console.log('更新餐馆信息失败', err);
       })
-    }
+    },
+    querySearchAsync (queryString, cb) {
+      if (queryString) {
+        try{
+          let params = {
+            type: 'search',
+            city_id: this.city.id,
+            keyword: queryString
+          }
+          api.searchplace(params).then(res => {
+            console.log(res)
+            if (res instanceof Array) {
+              res.map(item => {
+                item.value = item.address;
+                return item;
+              })
+              cb(res)
+            }
+          }).catch(err => {
+            console.log(err)
+          })
+        }catch(err){
+          console.log(err)
+        }
+      }
+    },
+    addressSelect(vale){
+      const { address, latitude, longitude } = vale;
+      this.address = {address, latitude, longitude};
+    },
+    beforeAvatarUpload(file) {
+      const isRightType = (file.type === 'image/jpeg') || (file.type === 'image/png');
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isRightType) {
+        this.$message.error('上传头像图片只能是 JPG 格式!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!');
+      }
+      return isRightType && isLt2M;
+    },
+    handleServiceAvatarScucess(res, file) {
+      console.log(res)
+      if (res.status == 1) {
+        this.selectTable.image_path = res.image_path;
+      }else{
+        this.$message.error('上传图片失败！');
+      }
+    },
+    handleDelete (index, row) {
+      api.deleteResturant(row.id).then(res => {
+        console.log(res)
+        if (res.status == 1) {
+          this.$message({
+            type: 'success',
+            message: '删除店铺成功'
+          })
+          this.tableData.splice(index, 1);
+        }else {
+          this.$message({
+            type: 'error',
+            message: '您的权限不足以删除此店铺'
+          })
+        }
+      }).catch(err => {
+        this.$message({
+          type: 'error',
+          message: err.message
+        })
+        console.log('删除店铺失败')
+      })
+    },
+    addFood(index, row){
+      this.$message({
+        type: 'error',
+        message: '开发进行中'
+      })
+     // this.$router.push({ path: 'addGoods', query: { restaurant_id: row.id }})
+    },
+
   }
 }
 </script>

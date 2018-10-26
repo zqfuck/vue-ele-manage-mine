@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import api from '@/js/api.js'
+import { mapActions, mapState } from 'vuex'
 export default{
   name: 'HeadTop',
   data () {
@@ -22,7 +24,16 @@ export default{
 
     }
   },
+  created () {
+    if (!this.adminInfo.id) {
+      this.getAdminData()
+    }
+  },
+  computed: {
+    ...mapState(['adminInfo'])
+  },
   methods: {
+    ...mapActions(['getAdminData']),
     handleCommand (command) {
       if (command === 'home') {
         this.$router.push('/manage')

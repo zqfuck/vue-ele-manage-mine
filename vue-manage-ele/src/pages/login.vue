@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import api from '@/js/api.js'
+import { mapActions, mapState } from 'vuex'
 export default {
   name: 'Login',
   data () {
@@ -44,23 +46,50 @@ export default {
       showLogin: false
     }
   },
+  created () {
+    if (!this.adminInfo.id) {
+      this.getAdminData()
+    }
+  },
+  computed: {
+    ...mapState(['adminInfo'])
+  },
   mounted () {
     this.showLogin = true
   },
   methods: {
+    ...mapActions(['getAdminData']),
     submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$message({
-            message: '登录成功了啊',
-            duration: '1500',
-            type: 'success'
+          const params = {
+            user_name: this.loginForm.username,
+            password: this.loginForm.password
+          }
+          api.login(params).then(res => {
+            console.log(res)
+            if (res.status == 1){
+              this.$message({
+                message: '登录成功了啊',
+                duration: '1500',
+                type: 'success'
+              })
+              setTimeout(() => {
+                this.$router.push('manage')
+              }, 2000)
+            }
+          }).catch(err => {
+            this.$message({
+              type: 'error',
+              message: err.message
+            });
           })
-          setTimeout(() => {
-            this.$router.push('manage')
-          }, 2000)
         } else {
-          console.log('error submit!!')
+          this.$notify.error({
+            title: '错误',
+            message: '请输入正确的用户名密码',
+            offset: 100
+          });
           return false
         }
       })

@@ -35,6 +35,24 @@ export function fetchGet (url, params) {
 
 export default {
   /**
+   * 登陆
+   */
+  login (params) {
+    return fetchPost('/admin/login', params)
+  },
+  /**
+   * 退出
+   */
+  signout (params) {
+    return fetchGet('/admin/singout')
+  },
+  /**
+   * 获取用户信息
+   */
+  getAdminInfo (params) {
+    return fetchGet('/admin/info')
+  },
+  /**
    * 用户注册量
    */
   userCount (params) {
@@ -144,6 +162,18 @@ export default {
    */
   updateResturant (params) {
     return fetchPost('/shopping/updateshop', params)
+  },
+  /**
+   * 获取搜索地址
+   */
+  searchplace (params) {
+    return fetchGet('/v1/pois', params)
+  },
+  /**
+   * 删除餐馆
+   */
+  deleteResturant (params) {
+    return fetchGet('/shopping/restaurant/' + params)
   }
 
 }
