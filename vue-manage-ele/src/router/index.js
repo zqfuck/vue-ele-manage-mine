@@ -6,6 +6,7 @@ import Home from '@/pages/Home'
 import UserList from '@/pages/UserList'
 import OrderList from '@/pages/OrderList'
 import ShopList from '@/pages/ShopList'
+import AddGoods from '@/pages/AddGoods'
 Vue.use(Router)
 
 export default new Router({
@@ -25,22 +26,28 @@ export default new Router({
           component: Home,
           meta: []
         },{
-          path: 'userlist',
+          path: 'userList',
           name: UserList,
           component: UserList,
           meta: ['数据管理', '用户列表']
         },
         {
-          path: 'orderlist',
+          path: 'orderList',
           name: OrderList,
           component: OrderList,
           meta: ['数据管理', '订单列表']
         },
         {
-          path: 'shoplist',
+          path: 'shopList',
           name: ShopList,
           component: ShopList,
           meta: ['数据管理', '商家列表']
+        },
+        {
+          path: 'addGoods',
+          name: AddGoods,
+          component: AddGoods,
+          meta: ['添加数据', '添加商品']
         }
       ]
     }
