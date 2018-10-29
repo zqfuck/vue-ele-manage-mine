@@ -6,7 +6,7 @@
         :data="tableData"
         style="width: 100%">
         <el-table-column type="expand">
-          <template scope="props">
+          <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="店铺名称">
                 <span>{{ props.row.name }}</span>
