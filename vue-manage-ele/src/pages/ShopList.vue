@@ -336,13 +336,8 @@ export default{
       })
     },
     addFood(index, row){
-      this.$message({
-        type: 'error',
-        message: '开发进行中'
-      })
-     // this.$router.push({ path: 'addGoods', query: { restaurant_id: row.id }})
-    },
-
+      this.$router.push({path: '/manage/addGoods',query: {restaurant_id: row.id}})
+    }
   }
 }
 </script>
