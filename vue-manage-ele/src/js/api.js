@@ -174,6 +174,18 @@ export default {
    */
   deleteResturant (params) {
     return fetchGet('/shopping/restaurant/' + params)
+  },
+  /**
+   * 获取当前店铺食品种类
+   */
+  getCategory (params) {
+    return fetchGet('/shopping/getcategory/' + params)
+  },
+  /**
+   * 添加食品种类
+   */
+  getCategory (params) {
+    return fetchPost('/shopping/addcategory', params)
   }
 
 }
