@@ -9,6 +9,12 @@ Vue.use(Vuex)
 const state = {
   adminInfo: {
     avatar: 'default.jpg'
+  },
+  adminDefault: {
+    name:'zq',
+    registerTime:'2018-10-20',
+    id:'369',
+    limit:'simple'
   }
 }
 

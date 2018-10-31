@@ -8,6 +8,7 @@ import OrderList from '@/pages/OrderList'
 import ShopList from '@/pages/ShopList'
 import AddGoods from '@/pages/AddGoods'
 import Explain from '@/pages/Explain'
+import AdminSet from '@/pages/AdminSet'
 Vue.use(Router)
 
 export default new Router({
@@ -55,6 +56,12 @@ export default new Router({
           name: 'Explain',
           component: Explain,
           meta: ['说明', '说明']
+        },
+        {
+          path: 'adminSet',
+          name: 'AdminSet',
+          component: AdminSet,
+          meta: ['设置', '管理员设置']
         }
       ]
     }
