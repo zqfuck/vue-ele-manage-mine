@@ -37,7 +37,7 @@
         registTime: moment().format('MMMM Do YYYY, h:mm:ss a'),
         baseImgPath: '',
         selectTable: {
-          image_path: ''
+          image_path: '166cdecf41720561.jpg'
         }
       }
     },
