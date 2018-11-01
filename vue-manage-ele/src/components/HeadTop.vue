@@ -2,7 +2,7 @@
   <div class="head_contain">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/manage' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+      <el-breadcrumb-item  v-for="(item, index) in this.$route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     <el-dropdown @command="handleCommand">
       <img src="../assets/head_pic.jpg" alt="" class="head_pic">

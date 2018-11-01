@@ -186,6 +186,12 @@ export default {
    */
   getCategory (params) {
     return fetchPost('/shopping/addcategory', params)
+  },
+  /**
+   * 获取用户分布信息
+   */
+  getUserCity (params) {
+    return fetchGet('/v1/user/city/count')
   }
 
 }

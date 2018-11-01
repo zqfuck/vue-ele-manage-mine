@@ -32,7 +32,6 @@
       layout="total, prev, pager, next"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      @prev-click="pre"
       :current-page="currentPage"
       :page-size="20"
       :total="count">

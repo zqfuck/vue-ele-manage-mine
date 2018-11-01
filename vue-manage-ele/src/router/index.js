@@ -9,6 +9,7 @@ import ShopList from '@/pages/ShopList'
 import AddGoods from '@/pages/AddGoods'
 import Explain from '@/pages/Explain'
 import AdminSet from '@/pages/AdminSet'
+import Visitor from '@/pages/Visitor'
 Vue.use(Router)
 
 export default new Router({
@@ -16,7 +17,8 @@ export default new Router({
     {
       path: '/',
       name: 'Login',
-      component: Login
+      component: Login,
+      title: '登录'
     }, {
       path: '/manage',
       component: Manage,
@@ -62,6 +64,12 @@ export default new Router({
           name: 'AdminSet',
           component: AdminSet,
           meta: ['设置', '管理员设置']
+        },
+        {
+          path: 'visitor',
+          name: 'Visitor',
+          component: Visitor,
+          meta: ['图表', '用户分布']
         }
       ]
     }

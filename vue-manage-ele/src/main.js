@@ -11,6 +11,7 @@ import '../static/css/border.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+Vue.use(require('vue-wechat-title'))
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
