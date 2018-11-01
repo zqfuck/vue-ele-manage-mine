@@ -27,6 +27,11 @@ export default{
   computed: {
 
   },
+  watch: {
+    pieDatas () {
+      this.initData();
+    }
+  },
   methods: {
     initData () {
       const option = {
