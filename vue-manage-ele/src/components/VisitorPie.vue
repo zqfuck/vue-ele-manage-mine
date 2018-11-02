@@ -37,7 +37,7 @@ export default{
       const option = {
         title : {
           text: '用户分布',
-          subtext: '分布数据',
+          subtext: '分布的数据',
           x:'center'
         },
         tooltip : {
