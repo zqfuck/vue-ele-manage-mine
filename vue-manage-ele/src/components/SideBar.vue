@@ -15,12 +15,12 @@
         <el-menu-item index="/manage/userList">用户列表</el-menu-item>
         <el-menu-item index="/manage/orderList">订单列表</el-menu-item>
         <el-menu-item index="/manage/shopList">商家列表</el-menu-item>
-        <el-menu-item index="/manage/userList">食品列表</el-menu-item>
-        <el-menu-item index="/manage/orderList">管理员列表</el-menu-item>
+        <!--<el-menu-item index="/manage/userList">食品列表</el-menu-item>-->
+       <!-- <el-menu-item index="/manage/orderList">管理员列表</el-menu-item>-->
       </el-submenu>
       <el-submenu index="3">
         <template slot="title"><i class="el-icon-plus"></i>添加数据</template>
-        <el-menu-item index="/manage/addGoods">添加商铺</el-menu-item>
+        <!--<el-menu-item index="/manage/addGoods">添加商铺</el-menu-item>-->
         <el-menu-item index="/manage/addGoods">添加商品</el-menu-item>
       </el-submenu>
       <el-submenu index="4">
