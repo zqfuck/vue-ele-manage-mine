@@ -17,8 +17,7 @@ export default new Router({
     {
       path: '/',
       name: 'Login',
-      component: Login,
-      title: '登录'
+      component: Login
     }, {
       path: '/manage',
       component: Manage,
