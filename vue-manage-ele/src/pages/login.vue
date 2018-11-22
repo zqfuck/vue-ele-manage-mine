@@ -52,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapState( ['adminInfo'] )
+    ...mapState(['adminInfo'])
   },
   mounted () {
     this.showLogin = true
