@@ -184,7 +184,7 @@ export default {
   /**
    * 添加食品种类
    */
-  getCategory (params) {
+  addCategory (params) {
     return fetchPost('/shopping/addcategory', params)
   },
   /**
