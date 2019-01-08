@@ -71,18 +71,6 @@ export default {
     return fetchGet('/statis/admin/' + params + '/count')
   },
   /**
-   * 获取用户数量
-   */
-  getUserCount (params) {
-    return fetchGet('/v1/users/count', params)
-  },
-  /**
-   * 获取订单数量
-   */
-  getOrderCount (params) {
-    return fetchGet('/bos/orders/count', params)
-  },
-  /**
    * 管理员数量
    */
   adminCount (params) {
