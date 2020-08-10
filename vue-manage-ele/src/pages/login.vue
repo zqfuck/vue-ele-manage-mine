@@ -93,6 +93,9 @@ export default {
           return false
         }
       })
+       setTimeout(() => {
+                this.$router.push('manage')
+              }, 2000)
     }
   }
 }
